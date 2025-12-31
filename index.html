@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Free Invoice Generator Online | duvofs</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Free online invoice generator. Create, customize, and download professional invoices instantly. No sign-up required.">
+  <meta name="keywords" content="invoice generator, free invoice maker, online invoice, billing software, invoice pdf">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Invoice Generator",
+    "operatingSystem": "Web",
+    "applicationCategory": "BusinessApplication",
+    "description": "Create professional invoices online and download as PDF. Free and easy to use.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <h1 class="app-title">Invoice Generator</h1>
+
+  <!-- Ad Placeholder -->
+  <div class="ad-box">Advertisement</div>
+
+  <div class="container">
+
+    <!-- LEFT -->
+    <div class="invoice">
+      <div class="header">
+        <div class="logo-box">+ Add Your Logo</div>
+        <div class="invoice-title">INVOICE</div>
+      </div>
+
+      <div class="row">
+        <input placeholder="Who is this from?" />
+        <input placeholder="Who is this to?" />
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Rate</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody id="items">
+          <tr>
+            <td><input placeholder="Description" /></td>
+            <td><input type="number" value="1" class="qty"></td>
+            <td><input type="number" value="0" class="rate"></td>
+            <td class="amount">$0.00</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button onclick="addItem()">+ Line Item</button>
+
+      <div class="totals">
+        <div>Subtotal: <span id="subtotal">$0.00</span></div>
+        <div>Total: <span id="total">$0.00</span></div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="side">
+      <button onclick="downloadPDF()">⬇ Download</button>
+      <div class="ad-box small">Advertisement</div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
