@@ -1,0 +1,97 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f7f9fb;
+  margin: 0;
+  padding: 20px;
+}
+
+.app-title {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.ad-box {
+  border: 1px solid #ccc;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  margin-bottom: 20px;
+}
+
+.ad-box.small {
+  height: 300px;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+}
+
+.invoice {
+  background: #fff;
+  padding: 20px;
+  flex: 3;
+  border-radius: 6px;
+}
+
+.side {
+  flex: 1;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo-box {
+  border: 1px dashed #ccc;
+  padding: 20px;
+}
+
+.invoice-title {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+input {
+  width: 100%;
+  padding: 6px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: #0f1c3f;
+  color: white;
+  padding: 8px;
+}
+
+td {
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  background: #42b883;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.totals {
+  margin-top: 20px;
+  text-align: right;
+}
