@@ -102,3 +102,35 @@ body {
 button {
   cursor: pointer;
 }
+
+/* everything from v1 stays the same */
+
+.row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.row span {
+  min-width: 90px;
+  text-align: right;
+}
+
+.row input {
+  width: 80px;
+}
+
+.row button {
+  padding: 2px 6px;
+}
+
+.total {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.balance {
+  font-weight: bold;
+}
