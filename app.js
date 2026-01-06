@@ -1,84 +1,50 @@
 let currency = "$";
-let discountIsPercent = true;
-let taxIsPercent = true;
 
-function format(n) {
-  return currency + n.toFixed(2);
-}
+document.getElementById("currency").addEventListener("change", e => {
+  currency = e.target.value;
+  calculate();
+});
 
 function addItem() {
-  const row = document.createElement("tr");
-  row.className = "item-row";
-  row.innerHTML = `
+  const tr = document.createElement("tr");
+  tr.innerHTML = `
     <td><input></td>
-    <td><input type="number" class="qty" value="1"></td>
-    <td><input type="number" class="rate" value="0"></td>
-    <td class="amount">$0.00</td>
+    <td><input type="number" value="1" class="qty"></td>
+    <td><input type="number" value="0" class="rate"></td>
+    <td class="amount">${currency}0.00</td>
   `;
-  document.getElementById("items").appendChild(row);
-}
-
-function toggleType(type) {
-  if (type === "discount") {
-    discountIsPercent = !discountIsPercent;
-    document.getElementById("discountType").innerText = discountIsPercent ? "%" : currency;
-  } else {
-    taxIsPercent = !taxIsPercent;
-    document.getElementById("taxType").innerText = taxIsPercent ? "%" : currency;
-  }
-  calculate();
+  document.getElementById("items").appendChild(tr);
 }
 
 function calculate() {
   let subtotal = 0;
-
-  document.querySelectorAll(".item-row").forEach(r => {
-    const q = +r.querySelector(".qty").value || 0;
-    const rate = +r.querySelector(".rate").value || 0;
-    const amt = q * rate;
-    r.querySelector(".amount").innerText = format(amt);
+  document.querySelectorAll("#items tr").forEach(row => {
+    const q = +row.querySelector(".qty").value || 0;
+    const r = +row.querySelector(".rate").value || 0;
+    const amt = q * r;
+    row.querySelector(".amount").innerText = currency + amt.toFixed(2);
     subtotal += amt;
   });
 
-  let discount = +discount.value || 0;
-  let tax = +taxInput.value || 0;
+  const tax = subtotal * (+tax.value / 100);
+  const total = subtotal + tax;
+  const paid = +paid.value || 0;
 
-  discount = discountIsPercent ? subtotal * discount / 100 : discount;
-  tax = taxIsPercent ? (subtotal - discount) * tax / 100 : tax;
-
-  const shipping = +shippingInput.value || 0;
-  const total = subtotal - discount + tax + shipping;
-  const paid = +paidInput.value || 0;
-
-  subtotalEl.innerText = format(subtotal);
-  totalEl.innerText = format(total);
-  balanceEl.innerText = format(total - paid);
-
-  saveData();
-}
-
-function downloadPDF() {
-  document.body.classList.add("pdf-mode");
-  html2pdf().from(document.getElementById("invoice-area")).save().then(() => {
-    document.body.classList.remove("pdf-mode");
-  });
-}
-
-/* Currency */
-currencySelect.onchange = e => {
-  currency = e.target.value;
-  calculate();
-};
-
-/* LocalStorage */
-function saveData() {
-  localStorage.setItem("invoiceData", document.body.innerHTML);
-}
-
-function loadData() {
-  const data = localStorage.getItem("invoiceData");
-  if (data) document.body.innerHTML = data;
+  subtotalEl.innerText = currency + subtotal.toFixed(2);
+  totalEl.innerText = currency + total.toFixed(2);
+  balanceEl.innerText = currency + (total - paid).toFixed(2);
 }
 
 document.addEventListener("input", calculate);
-window.onload = loadData;
+
+function downloadPDF() {
+  html2pdf().from(document.getElementById("invoice-area")).save("invoice.pdf");
+}
+
+/* Logo upload */
+logoInput.onchange = e => {
+  const img = logoPreview;
+  img.src = URL.createObjectURL(e.target.files[0]);
+  img.style.display = "block";
+  logoText.style.display = "none";
+};
