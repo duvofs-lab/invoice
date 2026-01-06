@@ -2,149 +2,115 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Free Invoice Generator Online | duvofs</title>
-
-<meta name="description" content="Free invoice generator to create professional invoices online. Download clean PDF invoices instantly. No sign-up required.">
-<meta name="keywords" content="invoice generator, free invoice maker, online invoice pdf, billing software, proforma invoice">
+<title>Invoice Generator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="style.css">
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Invoice Generator",
-  "applicationCategory": "BusinessApplication",
-  "operatingSystem": "Web",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  }
-}
-</script>
 </head>
 
 <body>
 
-<h1 class="title">Invoice Generator</h1>
+<h1 class="app-title">Invoice Generator</h1>
 
-<div class="ad-box no-print">Advertisement</div>
+<div class="top-bar">
+  <button onclick="downloadPDF()">Download</button>
+
+  <div class="currency-box">
+    <label>Currency</label>
+    <select id="currency">
+      <option value="$">USD ($)</option>
+      <option value="€">EUR (€)</option>
+      <option value="¥">JPY (¥)</option>
+      <option value="£">GBP (£)</option>
+      <option value="₹">INR (₹)</option>
+      <option value="R$">BRL (R$)</option>
+      <option value="₽">RUB (₽)</option>
+      <option value="CHF">CHF</option>
+      <option value="R">ZAR (R)</option>
+      <option value="$">AUD ($)</option>
+      <option value="$">CAD ($)</option>
+      <option value="$">MXN ($)</option>
+      <option value="$">SGD ($)</option>
+      <option value="$">NZD ($)</option>
+    </select>
+  </div>
+</div>
 
 <div class="layout">
 
-<div id="invoice-area">
+  <div class="ad-box"></div>
 
-  <div class="invoice-header">
-    <div class="logo">+ Add Your Logo</div>
-    <h2 contenteditable="true">INVOICE</h2>
-  </div>
+  <div id="invoice-area" class="invoice">
 
-  <div class="meta-grid">
-    <input placeholder="Who is this from?">
-    <input placeholder="Who is this to?">
+    <div class="invoice-header">
+      <div class="logo-box">
+        <input type="file" id="logoInput" accept="image/*">
+        <img id="logoPreview">
+        <span id="logoText">+ Add Your Logo</span>
+      </div>
 
-    <label contenteditable="true">Date</label>
-    <input type="date">
-
-    <label contenteditable="true">Payment Terms</label>
-    <input placeholder="Immediate">
-
-    <label contenteditable="true">Due Date</label>
-    <input type="date">
-
-    <label contenteditable="true">PO Number</label>
-    <input placeholder="#">
-  </div>
-
-  <table class="items-table">
-    <thead>
-      <tr>
-        <th class="col-item">Item</th>
-        <th class="col-qty">Qty</th>
-        <th class="col-rate">Rate</th>
-        <th class="col-amount">Amount</th>
-      </tr>
-    </thead>
-    <tbody id="items">
-      <tr class="item-row">
-        <td><input placeholder="Description"></td>
-        <td><input type="number" value="1" class="qty"></td>
-        <td><input type="number" value="0" class="rate"></td>
-        <td class="amount">$0.00</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <button onclick="addItem()">+ Line Item</button>
-
-  <textarea placeholder="Notes" contenteditable="true"></textarea>
-  <textarea placeholder="Terms & Conditions" contenteditable="true"></textarea>
-
-  <div class="totals">
-
-    <div>Subtotal: <span id="subtotal">$0.00</span></div>
-
-    <div class="toggle-row">
-      <span contenteditable="true">Discount</span>
-      <input id="discount" type="number" value="0">
-      <button onclick="toggleType('discount')">↻</button>
-      <span id="discountType">%</span>
+      <div class="invoice-title">
+        <h2 contenteditable="true">Invoice</h2>
+        <div># <input value="1"></div>
+      </div>
     </div>
 
-    <div class="toggle-row">
-      <span contenteditable="true">Tax</span>
-      <input id="tax" type="number" value="0">
-      <button onclick="toggleType('tax')">↻</button>
-      <span id="taxType">%</span>
+    <div class="from-box">
+      <textarea placeholder="Who is this document from?" maxlength="600"></textarea>
     </div>
 
-    <div>
-      <span contenteditable="true">Shipping</span>
-      <input id="shipping" type="number" value="0">
+    <div class="right-meta">
+      <label>Date <input type="date"></label>
+      <label>Payment Terms <input placeholder="7 Days"></label>
+      <label>Due Date <input type="date"></label>
+      <label>PO Number <input></label>
     </div>
 
-    <div><strong>Total:</strong> <span id="total">$0.00</span></div>
-
-    <div>
-      <span contenteditable="true">Amount Paid</span>
-      <input id="paid" type="number" value="0">
+    <div class="bill-ship">
+      <textarea placeholder="Who is this to?" maxlength="600"></textarea>
+      <textarea placeholder="Ship to (optional)" maxlength="600"></textarea>
     </div>
 
-    <div><strong>Balance Due:</strong> <span id="balance">$0.00</span></div>
+    <table class="items">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Rate</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody id="items">
+        <tr>
+          <td><input></td>
+          <td><input type="number" value="1" class="qty"></td>
+          <td><input type="number" value="0" class="rate"></td>
+          <td class="amount">$0.00</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="line-btn" onclick="addItem()">+ Line Item</button>
+
+    <div class="notes-terms">
+      <textarea placeholder="Notes"></textarea>
+      <textarea placeholder="Terms"></textarea>
+    </div>
+
+    <div class="totals">
+      <div>Subtotal <span id="subtotal">$0.00</span></div>
+      <div>Tax (%) <input id="tax" type="number" value="0"></div>
+      <div>Total <strong id="total">$0.00</strong></div>
+      <div>Amount Paid <input id="paid" type="number" value="0"></div>
+      <div>Balance Due <strong id="balance">$0.00</strong></div>
+    </div>
 
   </div>
 
-</div>
-
-<div class="side">
-  <select id="currency">
-    <option value="$">USD ($)</option>
-    <option value="₹">INR (₹)</option>
-    <option value="£">GBP (£)</option>
-    <option value="€">EUR (€)</option>
-  </select>
-
-  <button onclick="downloadPDF()">⬇ Download</button>
-
-  <div class="ad-box no-print">Advertisement</div>
-</div>
+  <div class="ad-box"></div>
 
 </div>
-
-<section class="seo-block">
-<h2>Free Online Invoice Generator</h2>
-<p>
-Create professional invoices instantly using our free invoice generator.
-Perfect for freelancers, consultants, agencies, and small businesses.
-Customize labels, add tax or discounts, choose your currency, and download
-a clean PDF invoice in seconds.
-</p>
-</section>
 
 <script src="app.js"></script>
 </body>
