@@ -39,76 +39,112 @@
 
 <div class="layout">
 
-  <div class="ad-box"></div>
+<div class="ad-box"></div>
 
-  <div id="invoice-area" class="invoice">
+<div id="invoice-area" class="invoice">
 
-    <div class="invoice-header">
-      <div class="logo-box">
-        <input type="file" id="logoInput" accept="image/*">
-        <img id="logoPreview">
-        <span id="logoText">+ Add Your Logo</span>
-      </div>
-
-      <div class="invoice-title">
-        <h2 contenteditable="true">Invoice</h2>
-        <div># <input value="1"></div>
-      </div>
+  <div class="invoice-header">
+    <div class="logo-box">
+      <input type="file" id="logoInput" accept="image/*">
+      <img id="logoPreview">
+      <span id="logoText">+ Add Your Logo</span>
     </div>
 
-    <div class="from-box">
-      <textarea placeholder="Who is this document from?" maxlength="600"></textarea>
+    <div class="invoice-title">
+      <h2 contenteditable="true">Invoice</h2>
+      <div># <input value="1"></div>
+    </div>
+  </div>
+
+  <textarea class="block" placeholder="Who is this document from?" maxlength="600"></textarea>
+
+  <div class="right-meta">
+    <label>Date <input type="date"></label>
+    <label>Payment Terms <input placeholder="7 Days"></label>
+    <label>Due Date <input type="date"></label>
+    <label>PO Number <input></label>
+  </div>
+
+  <div class="bill-ship">
+    <textarea placeholder="Who is this to?" maxlength="600"></textarea>
+    <textarea placeholder="Ship to (optional)" maxlength="600"></textarea>
+  </div>
+
+  <table class="items">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Rate</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody id="items">
+      <tr>
+        <td><input></td>
+        <td><input type="number" value="1" class="qty"></td>
+        <td><input type="number" value="0" class="rate"></td>
+        <td class="amount">$0.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="line-btn" onclick="addItem()">+ Line Item</button>
+
+  <div class="notes-terms">
+    <textarea placeholder="Notes"></textarea>
+    <textarea placeholder="Terms"></textarea>
+  </div>
+
+  <!-- TOTALS -->
+  <div class="totals">
+
+    <div class="row">
+      <span>Subtotal</span>
+      <span id="subtotal">$0.00</span>
     </div>
 
-    <div class="right-meta">
-      <label>Date <input type="date"></label>
-      <label>Payment Terms <input placeholder="7 Days"></label>
-      <label>Due Date <input type="date"></label>
-      <label>PO Number <input></label>
+    <div class="row">
+      <span>Tax (+)</span>
+      <input id="taxVal" type="number" value="0">
+      <span id="taxType">%</span>
+      <button onclick="toggleMode('tax')">↻</button>
     </div>
 
-    <div class="bill-ship">
-      <textarea placeholder="Who is this to?" maxlength="600"></textarea>
-      <textarea placeholder="Ship to (optional)" maxlength="600"></textarea>
+    <div class="row">
+      <span>Discount (–)</span>
+      <input id="discountVal" type="number" value="0">
+      <span id="discountType">%</span>
+      <button onclick="toggleMode('discount')">↻</button>
     </div>
 
-    <table class="items">
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Quantity</th>
-          <th>Rate</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody id="items">
-        <tr>
-          <td><input></td>
-          <td><input type="number" value="1" class="qty"></td>
-          <td><input type="number" value="0" class="rate"></td>
-          <td class="amount">$0.00</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <button class="line-btn" onclick="addItem()">+ Line Item</button>
-
-    <div class="notes-terms">
-      <textarea placeholder="Notes"></textarea>
-      <textarea placeholder="Terms"></textarea>
+    <div class="row">
+      <span>Shipping (+)</span>
+      <input id="shippingVal" type="number" value="0">
+      <span id="shippingType">%</span>
+      <button onclick="toggleMode('shipping')">↻</button>
     </div>
 
-    <div class="totals">
-      <div>Subtotal <span id="subtotal">$0.00</span></div>
-      <div>Tax (%) <input id="tax" type="number" value="0"></div>
-      <div>Total <strong id="total">$0.00</strong></div>
-      <div>Amount Paid <input id="paid" type="number" value="0"></div>
-      <div>Balance Due <strong id="balance">$0.00</strong></div>
+    <div class="row total">
+      <span>Total</span>
+      <span id="total">$0.00</span>
+    </div>
+
+    <div class="row">
+      <span>Amount Paid</span>
+      <input id="paid" type="number" value="0">
+    </div>
+
+    <div class="row balance">
+      <span>Balance Due</span>
+      <span id="balance">$0.00</span>
     </div>
 
   </div>
 
-  <div class="ad-box"></div>
+</div>
+
+<div class="ad-box"></div>
 
 </div>
 
